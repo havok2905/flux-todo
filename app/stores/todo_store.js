@@ -1,8 +1,6 @@
 import EventEmitter from 'events';
-import AppDispatcher from '../dispatcher/app_dispatcher';
-import TodoConstants from '../constants/todo_constants';
 
-class TodoStoreEmmitter extends EventEmitter {
+class TodoStore extends EventEmitter {
   constructor() {
     super();
     this._todos = {};
@@ -10,14 +8,17 @@ class TodoStoreEmmitter extends EventEmitter {
 
   removeTodo(uid) {
     delete this._todos[uid];
+    this.emitChange();
   }
 
   addTodo(todo) {
     this._todos[todo.id] = todo;
+    this.emitChange();
   }
 
   clearTodos() {
     this._todos = {};
+    this.emitChange();
   }
 
   todos() {
@@ -25,36 +26,16 @@ class TodoStoreEmmitter extends EventEmitter {
   }
 
   emitChange() {
-    this.emit('change');
+    this.emit('todo-change');
   }
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on('todo-change', callback);
   }
 
   removeChangeListener(callback) {
-    this.removeListener('change', callback);
+    this.removeListener('todo-change', callback);
   }
 }
 
-let TodoStore = new TodoStoreEmmitter();
-
-AppDispatcher.register((action) => {
-  switch(action.actionType) {
-    case TodoConstants['ADD_TODO']:
-      TodoStore.addTodo(action.todo);
-      TodoStore.emitChange();
-      break;
-    case TodoConstants['REMOVE_TODO']:
-      TodoStore.removeTodo(action.uid);
-      TodoStore.emitChange();
-      break;
-    case TodoConstants['CLEAR_TODOS']:
-      TodoStore.clearTodos();
-      TodoStore.emitChange();
-      break;
-    default:
-  }
-});
-
-export default TodoStore;
+export default new TodoStore();

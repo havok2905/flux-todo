@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import TodoActions from '../actions/todo_actions';
+import AlertActions from '../actions/alert_actions';
 
 class TodoForm extends React.Component {
   constructor() {
@@ -19,14 +20,6 @@ class TodoForm extends React.Component {
     this.count++;
   }
 
-  clear() {
-    TodoActions.clearTodos();
-  }
-
-  sort() {
-    TodoActions.sortTodos();
-  }
-
   render() {
     return (
       <div>
@@ -35,7 +28,9 @@ class TodoForm extends React.Component {
         </fieldset>
         <fieldset>
           <button onClick={this.add.bind(this)}>Add</button>
-          <button className='-destructive' onClick={this.clear.bind(this)}>Clear</button>
+          <button className='-destructive' onClick={TodoActions.clearTodos}>Clear</button>
+          <button onClick={AlertActions.incrementAlerts}>Increment Alert</button>
+          <button className='-destructive' onClick={AlertActions.decrementAlerts}>Decrement Alert</button>
         </fieldset>
       </div>
     );

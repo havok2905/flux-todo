@@ -1,0 +1,18 @@
+.alert {
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  line-height: 30px;
+  background-color: $green;
+  text-align: center;
+  color: $white;
+  transition: background-color 0.3s;
+
+  &.-failing {
+    background-color: $red;
+  }
+
+  &.-warning {
+    background-color: $yellow;
+  }
+}
