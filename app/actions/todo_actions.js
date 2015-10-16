@@ -1,8 +1,8 @@
 import AppDispatcher from '../dispatcher/app_dispatcher';
 
 let TodoActions = {
-  createTodo: (todo) => {
-    AppDispatcher.dispatch({ actionType: 'ADD_TODO', todo: todo });
+  createTodo: (text, uid) => {
+    AppDispatcher.dispatch({ actionType: 'ADD_TODO', todo: { uid: uid, text: text }});
   },
   removeTodo: (uid) => {
     AppDispatcher.dispatch({ actionType: 'REMOVE_TODO', uid: uid });

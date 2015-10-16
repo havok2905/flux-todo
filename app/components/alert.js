@@ -4,12 +4,21 @@ import AlertStore from '../stores/alert_store';
 class Alert extends React.Component {
   constructor() {
     super();
-    this.state = this.getStateFromStore();
+    this.state = this.newState();
     AlertStore.addChangeListener(this.onChange.bind(this));
   }
 
-  componentWillUnmount() {
-    AlertStore.removeChangeListener(this.onChange);
+  onChange() {
+    this.setState(this.newState());
+  }
+
+  getAlertsFromStore() {
+    return AlertStore.alerts() || 0;
+  }
+
+  newState() {
+    let alerts = this.getAlertsFromStore();
+    return { alerts: alerts, severity: this.severity(alerts) };
   }
 
   severity(num) {
@@ -24,23 +33,15 @@ class Alert extends React.Component {
     }
   }
 
-  getStateFromStore() {
-    let alerts = AlertStore.alerts();
-    return {
-      alerts: alerts,
-      severity: this.severity(alerts)
-    };
-  }
-
-  onChange() {
-    this.setState(this.getStateFromStore());
+  componentWillUnmount() {
+    AlertStore.removeChangeListener(this.onChange);
   }
 
   render() {
     return (
-      <div className={'alert ' + this.state.severity}>
+      <p className={'alert ' + this.state.severity}>
         {this.state.alerts}
-      </div>
+      </p>
     );
   }
 }

@@ -12,7 +12,7 @@ class TodoStore extends EventEmitter {
   }
 
   addTodo(todo) {
-    this._todos[todo.id] = todo;
+    this._todos[todo.uid] = todo;
     this.emitChange();
   }
 

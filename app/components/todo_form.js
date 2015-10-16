@@ -15,7 +15,7 @@ class TodoForm extends React.Component {
         text = node.value;
 
     node.value = '';
-    TodoActions.createTodo({ text: text, id: this.count });
+    TodoActions.createTodo(this.count, text);
 
     this.count++;
   }
