@@ -1,0 +1,14 @@
+.todo {
+  clear: both;
+  padding: 10px 0;
+  border-bottom: solid 1px $light-grey;
+
+  p {
+    display: inline;
+  }
+
+  button {
+    display: inline;
+    float: right;
+  }
+}

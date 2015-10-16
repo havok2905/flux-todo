@@ -1,0 +1,26 @@
+button {
+  padding: 20px;
+  margin: 0 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: $green;
+  color: $white;
+  transition: background-color 0.3s;
+
+  &:hover, &:focus, &:active {
+    background-color: darken($green, 20);
+  }
+
+  &.-small {
+    padding: 5px;
+  }
+
+  &.-destructive {
+    background-color: $red;
+
+    &:hover, &:focus, &:active {
+      background-color: darken($red, 20);
+    }
+  }
+}
